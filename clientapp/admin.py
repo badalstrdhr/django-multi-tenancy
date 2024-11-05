@@ -5,6 +5,6 @@ from django_tenants.admin import TenantAdminMixin
 
 # Register your models here.
 
-@admin.register(Client)
+@admin.register(Tenant)
 class ClientAdmin(TenantAdminMixin, admin.ModelAdmin):
     list_display = ('name',)

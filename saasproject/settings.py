@@ -42,7 +42,8 @@ SHARED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
+    'rest_framework',
     "django_cassandra_engine",
     "superadmin",
     'api',
@@ -66,7 +67,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'saasproject.urls'
-PUBLIC_SCHEMA_URLCONF = 'api.urls_public'
+# PUBLIC_SCHEMA_URLCONF = 'api.urls_public'
 
 TEMPLATES = [
     {
@@ -174,6 +175,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tenant Setup
-TENANT_MODEL = "clientapp.Client" 
+TENANT_MODEL = "clientapp.Tenant" 
 TENANT_DOMAIN_MODEL = "clientapp.Domain" 
 SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
