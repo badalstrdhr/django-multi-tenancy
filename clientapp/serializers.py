@@ -16,7 +16,7 @@ class TenantRegistrationSerializer(serializers.ModelSerializer):
     domain_name = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = get_user_model()  # Use the CustomUser model
+        model = get_user_model()  
         fields = ['email', 'username', 'raw_password', 'tenant_name', 'domain_name']
 
     def create(self, validated_data):
@@ -25,21 +25,16 @@ class TenantRegistrationSerializer(serializers.ModelSerializer):
         domain_name = validated_data.pop('domain_name')
 
         with transaction.atomic():
-            # Create the user
             user = get_user_model().objects.create(**validated_data)
             user.set_password(raw_password)
             user.save()
 
-            # Create tenant for the user
             tenant = Tenant.objects.create(name=tenant_name)
 
-            # Create a domain for the tenant
             domain = Domain.objects.create(tenant=tenant, domain_name=domain_name)
 
-            # Create a schema for the tenant (using django-tenants)
             tenant.create_schema()
 
-            # Associate the user with the tenant
             user.tenant = tenant
             user.save()
 
